@@ -90,6 +90,13 @@ public class GroupController {
                 group = GroupManager.getInstance().createGroup(groupEntity.getName());
                 group.setDescription(groupEntity.getDescription());
 
+                 
+                if (!groupEntity.getMembers().isEmpty()) {
+                    for (String username : groupEntity.getMembers()) {
+                        group.getMembers().add(server.createJID(username, null));
+                    }
+                }
+
                 group.getProperties().put("sharedRoster.showInRoster", "onlyGroup");
                 group.getProperties().put("sharedRoster.displayName", groupEntity.getName());
                 group.getProperties().put("sharedRoster.groupList", "");
